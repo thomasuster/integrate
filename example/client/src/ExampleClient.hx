@@ -1,9 +1,5 @@
 package ;
-import js.html.Element;
-import js.Browser;
-import js.html.MouseEvent;
-import js.html.Document;
-import js.Lib;
+import haxe.io.Bytes;
 import js.html.Uint8Array;
 import js.html.ArrayBuffer;
 import js.html.FileReader;
@@ -19,31 +15,37 @@ class ExampleClient {
         new ExampleClient();
     }
 
-    function onClick(e:Event):Void {
-        if(ws.readyState == WebSocket.OPEN) {
-            trace("ping");
-            ws.send('ping');
-        }
-    }
-    
     public function new():Void {
-        var document:Document = Browser.document;
-        var div:Element = document.createElement('button');
-        div.id = 'ping';
-        div.style.width = "100px";
-        div.style.height = "100px";
-        div.style.background = "#00FF00";
-        document.getElementsByTagName('body').item(0).appendChild(div);
-        div.addEventListener('click', onClick);
         connect();
+        loop();
     }
-    
+
+    function loop():Void {
+        var window:Dynamic = js.Browser.window;
+        var rqf:Dynamic = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame;
+        update();
+        rqf(loop);
+    }
+
     function connect():Void {
-        ws = new WebSocket("ws://localhost:4000");
+        ws = new WebSocket("ws://localhost:4001");
         ws.onopen = handleJSOpen;
         ws.onclose = handleJSClose;
         ws.onmessage = cast handleJSMessage;
         ws.onerror = cast handleJSError;
+    }
+
+    function update():Void {
+        if(ws.readyState == WebSocket.OPEN) {
+            trace("ping");
+            ws.send('ping');
+        }
+        if(ws.readyState == WebSocket.CLOSED)
+            connect();
+        
+        trace(fromServer);
     }
 
     function handleJSOpen(evt:Event) {
@@ -64,6 +66,7 @@ class ExampleClient {
                 var char:Int = view[i];
                 s += String.fromCharCode(char);
             }
+            trace(s);
             fromServer = s;
         };
         fileReader.readAsArrayBuffer(evt.data);

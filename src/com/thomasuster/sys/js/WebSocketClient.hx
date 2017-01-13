@@ -25,7 +25,8 @@ class WebSocketClient {
     }
 
     public function send(command:String, args:Array<String>):Void {
-        commands.push('$command,${args.join(',')}');
+        args.unshift(command);
+        commands.push(args.join(','));
     }
 
     function loop():Void {
@@ -39,7 +40,7 @@ class WebSocketClient {
 
     function update():Void {
         if(ws.readyState == WebSocket.OPEN) {
-            while(commands.length > 0) {
+            if(commands.length > 0) {
                 var command:String = commands.shift();
                 trace('send $command');
                 ws.send(command);   

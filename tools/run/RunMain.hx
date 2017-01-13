@@ -19,6 +19,7 @@ class RunMain {
 
     function test():Void {
         killPort(4000);
+        killPort(4001);
         
         var last:String = Sys.getCwd();
         
@@ -30,20 +31,20 @@ class RunMain {
         var process:Process = new Process('haxelib',['run','munit','test']);
         printAll(process);
         
-        
-        printAll(server);
-//        server.close();
+        server.kill();
         Sys.setCwd(last);
     }
 
     function printAll(process:Process):Void {
-        var exit:Int = process.exitCode(true);
-        if(exit != 0) {
+        var exit:Null<Int> = process.exitCode(true);
+        if(exit == 0) {
             while(true) {
                 try {
                     Sys.println(process.stdout.readLine());
                 }
-                catch(e:Eof) {}
+                catch(e:Eof) {
+                    break;
+                }
             }
         }
     }

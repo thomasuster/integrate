@@ -33,39 +33,42 @@ EReg.prototype = {
 	,__class__: EReg
 };
 var ExampleClient = function() {
-	var document = window.document;
-	var div = document.createElement("button");
-	div.id = "ping";
-	div.style.width = "100px";
-	div.style.height = "100px";
-	div.style.background = "#00FF00";
-	document.getElementsByTagName("body").item(0).appendChild(div);
-	div.addEventListener("click",$bind(this,this.onClick));
 	this.connect();
+	this.loop();
 };
 ExampleClient.__name__ = ["ExampleClient"];
 ExampleClient.main = function() {
 	new ExampleClient();
 };
 ExampleClient.prototype = {
-	onClick: function(e) {
-		if(this.ws.readyState == 1) {
-			haxe_Log.trace("ping",{ fileName : "ExampleClient.hx", lineNumber : 24, className : "ExampleClient", methodName : "onClick"});
-			this.ws.send("ping");
-		}
+	loop: function() {
+		var $window = window;
+		var rqf = $window.requestAnimationFrame || $window.webkitRequestAnimationFrame || $window.mozRequestAnimationFrame;
+		this.update();
+		rqf($bind(this,this.loop));
 	}
 	,connect: function() {
-		this.ws = new WebSocket("ws://localhost:4000");
+		this.ws = new WebSocket("ws://localhost:4001");
 		this.ws.onopen = $bind(this,this.handleJSOpen);
 		this.ws.onclose = $bind(this,this.handleJSClose);
 		this.ws.onmessage = $bind(this,this.handleJSMessage);
 		this.ws.onerror = $bind(this,this.handleJSError);
 	}
+	,update: function() {
+		if(this.ws.readyState == 1) {
+			haxe_Log.trace("ping",{ fileName : "ExampleClient.hx", lineNumber : 42, className : "ExampleClient", methodName : "update"});
+			this.ws.send("ping");
+		}
+		if(this.ws.readyState == 3) {
+			this.connect();
+		}
+		haxe_Log.trace(this.fromServer,{ fileName : "ExampleClient.hx", lineNumber : 48, className : "ExampleClient", methodName : "update"});
+	}
 	,handleJSOpen: function(evt) {
-		haxe_Log.trace("handleJSOpen\n",{ fileName : "ExampleClient.hx", lineNumber : 50, className : "ExampleClient", methodName : "handleJSOpen"});
+		haxe_Log.trace("handleJSOpen\n",{ fileName : "ExampleClient.hx", lineNumber : 52, className : "ExampleClient", methodName : "handleJSOpen"});
 	}
 	,handleJSClose: function(evt) {
-		haxe_Log.trace("handleJSOpen\n",{ fileName : "ExampleClient.hx", lineNumber : 54, className : "ExampleClient", methodName : "handleJSClose"});
+		haxe_Log.trace("handleJSOpen\n",{ fileName : "ExampleClient.hx", lineNumber : 56, className : "ExampleClient", methodName : "handleJSClose"});
 	}
 	,handleJSMessage: function(evt) {
 		var _gthis = this;
@@ -76,25 +79,31 @@ ExampleClient.prototype = {
 			var _g1 = 0;
 			var _g = view.length;
 			while(_g1 < _g) s += String.fromCharCode(view[_g1++]);
+			haxe_Log.trace(s,{ fileName : "ExampleClient.hx", lineNumber : 69, className : "ExampleClient", methodName : "handleJSMessage"});
 			_gthis.fromServer = s;
 		};
 		fileReader.readAsArrayBuffer(evt.data);
 	}
 	,handleJSError: function(evt) {
-		haxe_Log.trace("Error: " + Std.string(evt.data) + "\n",{ fileName : "ExampleClient.hx", lineNumber : 74, className : "ExampleClient", methodName : "handleJSError"});
+		haxe_Log.trace("Error: " + Std.string(evt.data) + "\n",{ fileName : "ExampleClient.hx", lineNumber : 77, className : "ExampleClient", methodName : "handleJSError"});
 	}
 	,__class__: ExampleClient
 };
 var ExampleTest = function() { };
 ExampleTest.__name__ = ["ExampleTest"];
 ExampleTest.prototype = {
-	testExample: function() {
+	testExample: function(factory) {
+		haxe_Timer.delay(factory.createHandler(this,$bind(this,this.onTestAsyncExampleComplete),3000,{ fileName : "ExampleTest.hx", lineNumber : 21, className : "ExampleTest", methodName : "testExample"}),2000);
 		this.sys = new com_thomasuster_sys_js_WebSocketClient();
 		this.sys.connect();
-		this.sys.send("echo",["hello world"]);
+		this.sys.send("cd",["../example/server"]);
+		this.sys.send("pwd",[]);
+		this.sys.send("neko",["Build.n"]);
 		this.client = new ExampleClient();
-		window.document.getElementById("ping").click();
-		org_hamcrest_MatcherAssert.assertThat(this.client.fromServer,org_hamcrest_core_IsEqual.equalTo("pong"),null,{ fileName : "ExampleTest.hx", lineNumber : 29, className : "ExampleTest", methodName : "testExample"});
+	}
+	,onTestAsyncExampleComplete: function() {
+		this.sys.send("killAll",[]);
+		org_hamcrest_MatcherAssert.assertThat(this.client.fromServer,org_hamcrest_core_IsEqual.equalTo("pong"),null,{ fileName : "ExampleTest.hx", lineNumber : 35, className : "ExampleTest", methodName : "onTestAsyncExampleComplete"});
 	}
 	,__class__: ExampleTest
 };
@@ -581,7 +590,8 @@ com_thomasuster_sys_js_WebSocketClient.prototype = {
 		this.loop();
 	}
 	,send: function(command,args) {
-		this.commands.push("" + command + "," + args.join(","));
+		args.unshift(command);
+		this.commands.push(args.join(","));
 	}
 	,loop: function() {
 		var $window = window;
@@ -591,18 +601,18 @@ com_thomasuster_sys_js_WebSocketClient.prototype = {
 	}
 	,update: function() {
 		if(this.ws.readyState == 1) {
-			while(this.commands.length > 0) {
+			if(this.commands.length > 0) {
 				var command = this.commands.shift();
-				haxe_Log.trace("send " + command,{ fileName : "WebSocketClient.hx", lineNumber : 44, className : "com.thomasuster.sys.js.WebSocketClient", methodName : "update"});
+				haxe_Log.trace("send " + command,{ fileName : "WebSocketClient.hx", lineNumber : 45, className : "com.thomasuster.sys.js.WebSocketClient", methodName : "update"});
 				this.ws.send(command);
 			}
 		}
 	}
 	,handleJSOpen: function(evt) {
-		haxe_Log.trace("handleJSOpen\n",{ fileName : "WebSocketClient.hx", lineNumber : 51, className : "com.thomasuster.sys.js.WebSocketClient", methodName : "handleJSOpen"});
+		haxe_Log.trace("handleJSOpen\n",{ fileName : "WebSocketClient.hx", lineNumber : 52, className : "com.thomasuster.sys.js.WebSocketClient", methodName : "handleJSOpen"});
 	}
 	,handleJSClose: function(evt) {
-		haxe_Log.trace("handleJSOpen\n",{ fileName : "WebSocketClient.hx", lineNumber : 55, className : "com.thomasuster.sys.js.WebSocketClient", methodName : "handleJSClose"});
+		haxe_Log.trace("handleJSOpen\n",{ fileName : "WebSocketClient.hx", lineNumber : 56, className : "com.thomasuster.sys.js.WebSocketClient", methodName : "handleJSClose"});
 	}
 	,handleJSMessage: function(evt) {
 		var _gthis = this;
@@ -621,7 +631,7 @@ com_thomasuster_sys_js_WebSocketClient.prototype = {
 		this.id = Std.parseInt(s);
 	}
 	,handleJSError: function(evt) {
-		haxe_Log.trace("Error: " + Std.string(evt.data) + "\n",{ fileName : "WebSocketClient.hx", lineNumber : 79, className : "com.thomasuster.sys.js.WebSocketClient", methodName : "handleJSError"});
+		haxe_Log.trace("Error: " + Std.string(evt.data) + "\n",{ fileName : "WebSocketClient.hx", lineNumber : 80, className : "com.thomasuster.sys.js.WebSocketClient", methodName : "handleJSError"});
 	}
 	,__class__: com_thomasuster_sys_js_WebSocketClient
 };
@@ -3435,7 +3445,7 @@ if(ArrayBuffer.prototype.slice == null) {
 	ArrayBuffer.prototype.slice = js_html_compat_ArrayBuffer.sliceImpl;
 }
 var Uint8Array = $global.Uint8Array || js_html_compat_Uint8Array._new;
-ExampleTest.__meta__ = { fields : { testExample : { Test : null}}};
+ExampleTest.__meta__ = { fields : { testExample : { AsyncTest : null}}};
 js_Boot.__toStr = ({ }).toString;
 js_html_compat_Uint8Array.BYTES_PER_ELEMENT = 1;
 massive_munit_Assert.assertionCount = 0;

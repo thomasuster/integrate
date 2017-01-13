@@ -1,0 +1,395 @@
+cd,../example/servercd,../example/servercd,../example/server
+cd,../example/server
+cd,../example/server
+cd,../example/server
+cd,../example/server
+
+data received
+data received
+cd,../example/server
+
+data received
+data received end
+data received
+cd,../example/server
+
+data received end
+data received
+data received end
+data received
+cd,../example/server
+
+data received end
+data received
+data received end
+data received
+neko,Build.n
+
+data received end
+data received
+data received end
+data received
+cd,../example/server
+
+data received end
+cd,../example/server
+
+cd,../example/server
+
+cd,../example/server
+
+cd,../example/server
+
+cd,../example/server
+
+
+cd,../example/server
+
+cd,../example/server
+
+cd,../example/server
+
+neko,Build.n
+
+neko,Build.n
+
+cd,../example/server
+
+neko,Build.n
+
+cd,../example/server
+
+neko,Build.n
+
+cd,../example/server
+
+neko,Build.n
+
+cd,../example/server
+
+neko,Build.n
+
+cd,../example/server
+
+pwd,
+
+neko,Build.n
+
+cd,../example/server
+
+pwd,
+
+neko,Build.n
+
+cd,../example/server
+
+pwd,
+
+neko,Build.n
+
+cd,../example/server
+
+pwd,
+
+usage: pwd [-L | -P]
+neko,Build.n
+
+Called from ? line 1
+cd,../example/server
+
+cd ../example/server
+Command not found : ../example/server
+pwd,
+
+pwd 
+Command not found : 
+neko,Build.n
+
+neko Build.n
+Command not found : Build.n
+cd,../example/server
+
+cd ../example/server
+Command not found : ../example/server
+pwd,
+
+pwd 
+Command not found : 
+neko,Build.n
+
+neko Build.n
+Command not found : Build.n
+cd,../example/server
+
+full:cd ../example/server
+Command not found : ../example/server
+pwd,
+
+full:pwd 
+Command not found : 
+neko,Build.n
+
+full:neko Build.n
+Command not found : Build.n
+cd,../example/server
+
+full:cd ../example/server
+pwd,
+
+full:pwd 
+usage: pwd [-L | -P]
+neko,Build.n
+
+full:neko Build.n
+Called from ? line 1
+cd,../example/server
+
+full:cd ../example/server
+length:17
+pwd,
+
+full:pwd 
+length:0
+usage: pwd [-L | -P]
+neko,Build.n
+
+full:neko Build.n
+length:7
+Called from ? line 1
+cd,../example/server
+
+full:cd ../example/server
+length:1
+pwd,
+
+full:pwd 
+length:1
+usage: pwd [-L | -P]
+neko,Build.n
+
+full:neko Build.n
+length:1
+Called from ? line 1
+cd,../example/server
+
+full:cd ../example/server
+length:1
+all[0]='../example/server'
+pwd,
+
+full:pwd 
+length:1
+all[0]=''
+usage: pwd [-L | -P]
+cd,../example/server
+
+full:cd ../example/server
+length:1
+all[0]='../example/server'
+pwd,
+
+full:pwd 
+length:1
+all[0]=''
+usage: pwd [-L | -P]
+neko,Build.n
+
+full:neko Build.n
+length:1
+all[0]='Build.n'
+Called from ? line 1
+cd,../example/server
+
+full:cd ../example/server
+length:1
+all[0]='../example/server'
+pwd
+
+full:null 
+length:0
+neko,Build.n
+
+full:neko Build.n
+length:1
+all[0]='Build.n'
+Called from ? line 1
+cd,../example/server
+
+full:cd ../example/server
+length:1
+all[0]='../example/server'
+pwd
+
+full:null 
+length:0
+neko,Build.n
+
+full:neko Build.n
+length:1
+all[0]='Build.n'
+Called from ? line 1
+cd,../example/server
+
+full:cd ../example/server
+length:1
+all[0]='../example/server'
+pwd
+
+full:pwd 
+length:0
+/Users/thomasuster/haxe-sys-server/server
+neko,Build.n
+
+full:neko Build.n
+length:1
+all[0]='Build.n'
+Called from ? line 1
+cd,../example/server
+
+full:cd ../example/server
+length:1
+all[0]='../example/server'
+pwd
+
+full:pwd 
+length:0
+/Users/thomasuster/haxe-sys-server/server
+neko,Build.n
+
+full:neko Build.n
+length:1
+all[0]='Build.n'
+Called from ? line 1
+Called from ServerMain.hx line 12
+Called from hxnet/tcp/Server.hx line 48
+Called from hxnet/tcp/Server.hx line 40
+Called from /usr/local/lib/haxe/std/neko/_std/sys/net/Socket.hx line 178
+Uncaught exception - std@socket_bind
+cd,../example/server
+
+full:cd ../example/server
+length:1
+all[0]='../example/server'
+pwd
+
+full:pwd 
+length:0
+/Users/thomasuster/haxe-sys-server/server
+neko,Build.n
+
+full:neko Build.n
+length:1
+all[0]='Build.n'
+Called from ? line 1
+Called from ServerMain.hx line 12
+Called from hxnet/tcp/Server.hx line 48
+Called from hxnet/tcp/Server.hx line 40
+Called from /usr/local/lib/haxe/std/neko/_std/sys/net/Socket.hx line 178
+Uncaught exception - std@socket_bind
+cd,../example/server
+
+full:cd ../example/server
+length:1
+all[0]='../example/server'
+run
+neko,Build.n
+
+full:neko Build.n
+length:1
+all[0]='Build.n'
+run
+Called from ? line 1
+Called from ServerMain.hx line 12
+Called from hxnet/tcp/Server.hx line 48
+Called from hxnet/tcp/Server.hx line 40
+Called from /usr/local/lib/haxe/std/neko/_std/sys/net/Socket.hx line 178
+Uncaught exception - std@socket_bind
+cd,../example/server
+
+full:cd ../example/server
+length:1
+all[0]='../example/server'
+run
+run 1
+pwd
+
+full:pwd 
+length:0
+run
+run 1
+/Users/thomasuster/haxe-sys-server/server
+neko,Build.n
+
+full:neko Build.n
+length:1
+all[0]='Build.n'
+run
+run 1
+Called from ? line 1
+Called from ServerMain.hx line 12
+Called from hxnet/tcp/Server.hx line 48
+Called from hxnet/tcp/Server.hx line 40
+Called from /usr/local/lib/haxe/std/neko/_std/sys/net/Socket.hx line 178
+Uncaught exception - std@socket_bind
+cd,../example/server
+
+full:cd ../example/server
+length:1
+all[0]='../example/server'
+run
+run 1
+pwd
+
+full:pwd 
+length:0
+run
+run 1
+/Users/thomasuster/haxe-sys-server/server
+run 2
+cd,../example/server
+
+full:cd ../example/server
+length:1
+all[0]='../example/server'
+run
+run 1
+pwd
+
+full:pwd 
+length:0
+run
+run 1
+/Users/thomasuster/haxe-sys-server/server
+run 2
+run 3
+cd,../example/server
+
+full:cd ../example/server
+length:1
+all[0]='../example/server'
+run
+run 1
+pwd
+
+full:pwd 
+length:0
+run
+run 1
+/Users/thomasuster/haxe-sys-server/server
+run 2
+run 3
+neko,Build.n
+
+full:neko Build.n
+length:1
+all[0]='Build.n'
+run
+run 1
+Called from ? line 1
+Called from ServerMain.hx line 12
+Called from hxnet/tcp/Server.hx line 48
+Called from hxnet/tcp/Server.hx line 40
+Called from /usr/local/lib/haxe/std/neko/_std/sys/net/Socket.hx line 178
+Uncaught exception - std@socket_bind
+run 2
+run 3

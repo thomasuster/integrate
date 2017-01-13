@@ -26,7 +26,7 @@ class ExampleServer {
         socket = new Socket();
         socket.setBlocking(true);
         socket.setTimeout(60);
-        socket.bind(new Host('localhost'),4000);
+        socket.bind(new Host('localhost'),4001);
         socket.listen(1);
     }
 

@@ -7,33 +7,33 @@ function $extend(from, fields) {
 	return proto;
 }
 var ExampleClient = function() {
-	var document = window.document;
-	var div = document.createElement("button");
-	div.id = "ping";
-	div.style.width = "100px";
-	div.style.height = "100px";
-	div.style.background = "#00FF00";
-	document.getElementsByTagName("body").item(0).appendChild(div);
-	div.addEventListener("click",$bind(this,this.onClick));
 	this.connect();
+	this.loop();
 };
 ExampleClient.__name__ = true;
 ExampleClient.main = function() {
 	new ExampleClient();
 };
 ExampleClient.prototype = {
-	onClick: function(e) {
-		if(this.ws.readyState == 1) {
-			console.log("ping");
-			this.ws.send("ping");
-		}
+	loop: function() {
+		var $window = window;
+		var rqf = $window.requestAnimationFrame || $window.webkitRequestAnimationFrame || $window.mozRequestAnimationFrame;
+		this.update();
+		rqf($bind(this,this.loop));
 	}
 	,connect: function() {
-		this.ws = new WebSocket("ws://localhost:4000");
+		this.ws = new WebSocket("ws://localhost:4001");
 		this.ws.onopen = $bind(this,this.handleJSOpen);
 		this.ws.onclose = $bind(this,this.handleJSClose);
 		this.ws.onmessage = $bind(this,this.handleJSMessage);
 		this.ws.onerror = $bind(this,this.handleJSError);
+	}
+	,update: function() {
+		if(this.ws.readyState == 1) {
+			console.log("ping");
+			this.ws.send("ping");
+		}
+		console.log(this.fromServer);
 	}
 	,handleJSOpen: function(evt) {
 		console.log("handleJSOpen\n");
@@ -42,6 +42,7 @@ ExampleClient.prototype = {
 		console.log("handleJSOpen\n");
 	}
 	,handleJSMessage: function(evt) {
+		var _gthis = this;
 		var fileReader = new FileReader();
 		fileReader.onload = function() {
 			var view = new Uint8Array(fileReader.result);
@@ -49,7 +50,7 @@ ExampleClient.prototype = {
 			var _g1 = 0;
 			var _g = view.length;
 			while(_g1 < _g) s += String.fromCharCode(view[_g1++]);
-			console.log(s);
+			_gthis.fromServer = s;
 		};
 		fileReader.readAsArrayBuffer(evt.data);
 	}
