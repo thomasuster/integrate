@@ -19,3 +19,43 @@ length:1
 all[0]='Build.n'
 run
 run 1
+full:cd ../example/server
+length:1
+all[0]='../example/server'
+run
+run 1
+/usr/bin/cd: line 4: cd: ../example/server: No such file or directory
+run 2
+run 3
+full:pwd 
+length:0
+run
+run 1
+/Users/thomasuster/haxe-sys-server/example/server
+run 2
+run 3
+full:neko Build.n
+length:1
+all[0]='Build.n'
+run
+run 1
+full:cd ../example/server
+length:1
+all[0]='../example/server'
+run
+run 1
+/usr/bin/cd: line 4: cd: ../example/server: No such file or directory
+run 2
+run 3
+full:pwd 
+length:0
+run
+run 1
+/Users/thomasuster/haxe-sys-server/example/server
+run 2
+run 3
+full:neko Build.n
+length:1
+all[0]='Build.n'
+run
+run 1

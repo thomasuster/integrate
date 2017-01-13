@@ -93,7 +93,7 @@ var ExampleTest = function() { };
 ExampleTest.__name__ = ["ExampleTest"];
 ExampleTest.prototype = {
 	testExample: function(factory) {
-		haxe_Timer.delay(factory.createHandler(this,$bind(this,this.onTestAsyncExampleComplete),3000,{ fileName : "ExampleTest.hx", lineNumber : 21, className : "ExampleTest", methodName : "testExample"}),2000);
+		haxe_Timer.delay(factory.createHandler(this,$bind(this,this.onTestAsyncExampleComplete),300,{ fileName : "ExampleTest.hx", lineNumber : 21, className : "ExampleTest", methodName : "testExample"}),200);
 		this.sys = new com_thomasuster_sys_js_WebSocketClient();
 		this.sys.connect();
 		this.sys.send("cd",["../example/server"]);
