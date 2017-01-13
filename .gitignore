@@ -1,0 +1,6 @@
+.DS_Store
+**/*.n
+**/*.js
+**/report/
+**/build/
+**/logs.txt

@@ -1,0 +1,4 @@
+-lib hxnet
+-cp src
+-main ServerMain
+-neko Build.n
