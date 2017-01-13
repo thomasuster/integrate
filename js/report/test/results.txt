@@ -1,0 +1,2 @@
+Tests FAILED under js using summary client
+END
