@@ -30,7 +30,6 @@ class ExampleTest {
     
     private function onTestAsyncExampleComplete():Void
     {
-//        sys.killAll();
         MatcherAssert.assertThat(client.fromServer, IsEqual.equalTo('pong'));
     }
 }
