@@ -31,7 +31,6 @@ class ServerMain {
         clearLogs();
         threads = [];
         mutex = new Mutex();
-        print('start main');
         var server:Server = new hxnet.tcp.Server(new hxnet.base.Factory(SysServerWebSocket), 4000, 'localhost');
         server.listen();
 
@@ -46,7 +45,6 @@ class ServerMain {
             var pid = pids[i];
             Sys.command('kill',['$pid']);
         }
-        print('closed!');
     }
 
     public static function print(s:String):Void {
