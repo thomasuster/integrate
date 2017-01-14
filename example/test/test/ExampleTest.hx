@@ -18,7 +18,7 @@ class ExampleTest {
     
     @AsyncTest
     public function testExample(asyncFactory:AsyncFactory):Void {
-        AsyncAssert.register(this, asyncFactory, testExampleDone, 300);
+        AsyncAssert.register(this, asyncFactory, testExampleDone, 100);
         
         sys.send('neko', ['../example/server/Build.n']);
         
