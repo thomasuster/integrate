@@ -26,8 +26,21 @@ class ExampleTest {
         client = new ExampleClient();
         client.start();
     }
-    
-    private function testExampleDone():Void  {
+    function testExampleDone():Void  {
         MatcherAssert.assertThat(client.fromServer, IsEqual.equalTo('pong'));
+    }
+
+    @AsyncTest
+    public function testClientArg(asyncFactory:AsyncFactory):Void {
+        AsyncAssert.register(this, asyncFactory, testClientArgDone, 100);
+
+//        sys.send('neko', ['../example/server/Build.n']);
+//
+//        client = new ExampleClient();
+//        client.args = '-marco';
+//        client.start();
+    }
+    function testClientArgDone():Void  {
+//        MatcherAssert.assertThat(client.fromServer, IsEqual.equalTo('polo'));
     }
 }

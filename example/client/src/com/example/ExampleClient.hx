@@ -10,12 +10,25 @@ class ExampleClient {
     public var ws:WebSocket;
     public var fromServer:String;
     public var args:String;
+    
+    var flags:Map<String,String>;
 
-    public function new():Void {}
+    public function new():Void {
+        args = '';
+        flags = new Map<String, String>();
+    }
 
     public function start():Void {
+        parseArgs();
         connect();
         loop();
+    }
+
+    function parseArgs():Void {
+        var _args:Array<String> = args.split(' ');
+        for (i in 0..._args.length) {
+            flags.set(_args[i],_args[i]);            
+        }
     }
 
     function loop():Void {
@@ -37,7 +50,10 @@ class ExampleClient {
 
     function update():Void {
         if(ws.readyState == WebSocket.OPEN) {
-            ws.send('ping');
+            if(flags.exists('-marco'))
+                ws.send('marco');
+            else
+                ws.send('ping');
         }
         if(ws.readyState == WebSocket.CLOSED)
             connect();
