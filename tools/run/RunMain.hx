@@ -1,4 +1,3 @@
-import com.thomasuster.sys.RPCClient;
 import haxe.io.Eof;
 import sys.io.Process;
 class RunMain {
@@ -44,12 +43,9 @@ class RunMain {
         var process:Process = new Process('haxelib',['run','munit','test']);
         var code:Int = process.exitCode(true);
 
-//        process.exitCode(true);
         requestServerTerminate();
         server.exitCode(true);
 
-        
-//        process.exitCode(true);
         printAll(process);
         Sys.exit(code);
     }
