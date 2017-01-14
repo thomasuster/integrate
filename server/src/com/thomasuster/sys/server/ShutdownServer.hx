@@ -1,13 +1,14 @@
 package com.thomasuster.sys.server;
 import sys.net.Host;
 import sys.net.Socket;
-class SysShutdownServer {
+class ShutdownServer {
+
+    public var model:ServerModel;
 
     var socket:Socket;
     var s:Socket;
 
     public function new():Void {
-        
     }
 
     public function start():Void {
@@ -19,10 +20,8 @@ class SysShutdownServer {
     }
 
     public function update():Void {
-        ServerMain.print('Waiting for terminate');
         s = socket.accept();
-        ServerMain.print('b');
         s.close();
-        ServerMain.close = true;
+        model.close = true;
     }
 }

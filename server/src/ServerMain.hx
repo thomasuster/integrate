@@ -1,55 +1,44 @@
 package ;
-import neko.vm.Thread;
-import com.thomasuster.sys.server.SysShutdownServer;
-import neko.vm.Thread;
-import neko.vm.Mutex;
-import sys.io.FileOutput;
-import sys.io.File;
-import com.thomasuster.sys.server.SysServerWebSocket;
+import com.thomasuster.sys.server.WSHandlerFactory;
+import com.thomasuster.sys.server.ServerModel;
+import com.thomasuster.sys.server.WSHandler;
+import com.thomasuster.sys.server.ShutdownServer;
 import hxnet.tcp.Server;
+import neko.vm.Thread;
 class ServerMain {
 
-    static public var close:Bool;
-
-    static var mutex:Mutex;
-    public static var pids:Array<Int> = [];
+    var model:ServerModel;
+    var wsServer:Server;
     
     static public function main() {
         new ServerMain();
-        pids = [];
-    }
-
-    function clearLogs():Void {
-        var write:FileOutput = File.write('logs.txt');
-        write.writeString('');
-        write.close();
     }
 
     public function new():Void {
-        clearLogs();
-        mutex = new Mutex();
-        var server:Server = new hxnet.tcp.Server(new hxnet.base.Factory(SysServerWebSocket), 4000, 'localhost');
-        server.listen();
+        model = new ServerModel();
+        model.clearLogs();
 
-        var shutDownSerber:SysShutdownServer = new SysShutdownServer();
-        shutDownSerber.start();
-        Thread.create(shutDownSerber.update);
+        startWSHandler();
+        startShutdownServer();
 
-        while (!close) {
-            server.update();
-        }
-        for (i in 0...pids.length) {
-            var pid = pids[i];
-            Sys.command('kill',['$pid']);
-        }
+        while (!model.close)
+            wsServer.update();
+        
+        model.killAll();
     }
 
-    public static function print(s:String):Void {
-        mutex.acquire();
-        var write:FileOutput = File.append('logs.txt');
-        write.writeString(s+'\n');
-        write.close();
-        mutex.release();
+    function startWSHandler():Void {
+        var factory:WSHandlerFactory = new WSHandlerFactory();
+        factory.model = model;
+        wsServer = new hxnet.tcp.Server(factory, 4000, 'localhost');
+        wsServer.listen();
+    }
+
+    function startShutdownServer():Void {
+        var socketServer:ShutdownServer = new ShutdownServer();
+        socketServer.model = model;
+        socketServer.start();
+        Thread.create(socketServer.update);
     }
 }
    

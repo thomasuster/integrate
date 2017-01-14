@@ -3,7 +3,9 @@ import ServerMain;
 import String;
 import hxnet.protocols.WebSocket;
 import sys.io.Process;
-class SysServerWebSocket extends WebSocket {
+class WSHandler extends WebSocket {
+
+    public var model:ServerModel;
 
     override private function recvText(raw:String):Void {
         try {
@@ -30,11 +32,11 @@ class SysServerWebSocket extends WebSocket {
 
     function runProc(command:String, all:Array<String>):Void {
         var process:Process = new Process(command, all);
-        ServerMain.pids.push(process.getPid());
+        model.pids.push(process.getPid());
     }
 
     function print(s:String):Void {
-        ServerMain.print(s);
+        model.print(s);
     }
 }
    
