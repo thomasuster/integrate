@@ -38,8 +38,6 @@ class RunMain {
         Sys.setCwd('$last/server');
         server = new Process('neko',['Build.n']);
 
-        trace(findPID(4002));
-        
         var path:String = Sys.args()[Sys.args().length-1];
         Sys.setCwd(path);
 
@@ -48,13 +46,10 @@ class RunMain {
 
 //        process.exitCode(true);
         requestServerTerminate();
-        trace('a');
         server.exitCode(true);
-        trace('b');
 
         
 //        process.exitCode(true);
-        trace('c');
         printAll(process);
         Sys.exit(code);
     }
