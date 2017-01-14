@@ -1,15 +1,24 @@
+import com.thomasuster.sys.tool.ServerTerminator;
+import com.thomasuster.sys.tool.ProcessPrinter;
+import com.thomasuster.sys.tool.PIDFinder;
 import haxe.io.Eof;
 import sys.io.Process;
 class RunMain {
     
     var commands:Map<String, Void->Void>;
     var server:Process;
+    var finder:PIDFinder;
+    var printer:ProcessPrinter;
+    var serverTerminator:ServerTerminator;
 
     public static function main() {
         new RunMain();
     }
 
     public function new():Void {
+        finder = new PIDFinder();
+        printer = new ProcessPrinter();
+        serverTerminator = new ServerTerminator();
         commands = new Map<String, Void->Void>();
         commands.set('test', test);
         commands.set('find', find);
@@ -43,71 +52,20 @@ class RunMain {
         var process:Process = new Process('haxelib',['run','munit','test']);
         var code:Int = process.exitCode(true);
 
-        requestServerTerminate();
+        serverTerminator.terminate();
         server.exitCode(true);
 
-        printAll(process);
+        printer.printAll(process);
         Sys.exit(code);
-    }
-
-    function requestServerTerminate():Void {
-        var s = new sys.net.Socket();
-        s.setBlocking(true);
-        while(true) {
-            try {
-                s.connect(new sys.net.Host("localhost"),4002);
-                break;
-            }
-            catch(e:Dynamic) {}
-        }
-        s.output.writeString('close');
-        s.close();
-    }
-
-    function printAll(process:Process):Void {
-        while(true) {
-            try {
-                Sys.println(process.stdout.readLine());
-            }
-            catch(e:Eof) {
-                break;
-            }
-        }
-        while(true) {
-            try {
-                Sys.println(process.stderr.readLine());
-            }
-            catch(e:Eof) {
-                break;
-            }
-        }
     }
 
     function find():Void {
         var port:Int = Std.parseInt(Sys.args()[1]);
-        Sys.println(findPID(port));
-    }
-
-    function findPID(port:Int):Int {
-        var lsof:Process = new Process('lsof',['-n','-i4TCP:$port']);
-        var lines:Array<String> = [];
-        try {
-            lines.push(lsof.stdout.readLine());
-            lines.push(lsof.stdout.readLine());
-            var ereg:EReg = ~/.+\s+([0-9]+)\s/g;
-            if(!ereg.match(lines[1]))
-                return 0;
-            var pidS:String = ereg.matched(1);
-            var pid:Int = Std.parseInt(pidS);
-            return pid;   
-        }
-        catch(e:Eof) {
-            return 0;
-        }
+        Sys.println(finder.findPID(port));
     }
 
     function killPort(port:Int):Void {
-        var pid:Int = findPID(port);
+        var pid:Int = finder.findPID(port);
         if(pid != 0)
             Sys.command('kill',['$pid']);
     }
