@@ -1,12 +1,6 @@
 package ;
-
-import js.html.Event;
-import js.html.MouseEvent;
-import haxe.Timer;
 import com.thomasuster.sys.js.SysClient;
-import js.Browser;
-import js.html.Document;
-import massive.munit.Assert;
+import haxe.Timer;
 import massive.munit.async.AsyncFactory;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
