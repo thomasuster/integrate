@@ -23,15 +23,14 @@ class ExampleTest {
         
         sys = new WebSocketClient();
         sys.connect();
-        sys.send('cd',['../example/server']);
-        sys.send('pwd',[]);
-        sys.send('neko',['Build.n']);
+        sys.send('neko', ['../example/server/Build.n']);
         
         client = new ExampleClient();
     }
+    
     private function onTestAsyncExampleComplete():Void
     {
-//        sys.send('killAll',[]);
+//        sys.killAll();
         MatcherAssert.assertThat(client.fromServer, IsEqual.equalTo('pong'));
     }
 }

@@ -16,7 +16,11 @@ class RunMain {
         commands.set('find', find);
         commands.set('kill', kill);
         commands.set('killAll', killAll);
-        commands.get(Sys.args()[0])();
+        var command:String = Sys.args()[0];
+        if(commands.exists(command))
+            commands.get(command)();
+        else
+            Sys.println('Command not found \'$command\'');
     }
 
     function killAll():Void {
@@ -34,22 +38,39 @@ class RunMain {
         Sys.setCwd('$last/server');
         server = new Process('neko',['Build.n']);
 
-//        var path:String = Sys.args()[Sys.args().length-1];
-//        Sys.setCwd(path);
+        trace(findPID(4002));
+        
+        var path:String = Sys.args()[Sys.args().length-1];
+        Sys.setCwd(path);
 
-//        var process:Process = new Process('haxelib',['run','munit','test']);
-//        var code:Int = process.exitCode(true);
-        
-        
+        var process:Process = new Process('haxelib',['run','munit','test']);
+        var code:Int = process.exitCode(true);
+
+//        process.exitCode(true);
+        requestServerTerminate();
+        trace('a');
         server.exitCode(true);
-//        trace('her2');
+        trace('b');
 
-//        client.update();
+        
+//        process.exitCode(true);
+        trace('c');
+        printAll(process);
+        Sys.exit(code);
+    }
 
-
-//        while(true) {}
-//        Sys.setCwd(last);
-//        Sys.exit(code);
+    function requestServerTerminate():Void {
+        var s = new sys.net.Socket();
+        s.setBlocking(true);
+        while(true) {
+            try {
+                s.connect(new sys.net.Host("localhost"),4002);
+                break;
+            }
+            catch(e:Dynamic) {}
+        }
+        s.output.writeString('close');
+        s.close();
     }
 
     function printAll(process:Process):Void {

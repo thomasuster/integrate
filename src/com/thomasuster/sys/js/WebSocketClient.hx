@@ -1,4 +1,5 @@
 package com.thomasuster.sys.js;
+import String;
 import js.html.Uint8Array;
 import js.html.ArrayBuffer;
 import js.html.Event;
@@ -24,9 +25,22 @@ class WebSocketClient {
         loop();
     }
 
+    public function disconnect():Void {
+        ws.close(0,'Complete');
+    }
+
     public function send(command:String, args:Array<String>):Void {
         args.unshift(command);
         commands.push(args.join(','));
+    }
+
+    public function runFrom(from:String, command:String, args:Array<String>):Void {
+        args = ['runFrom',from,command].concat(args);
+        commands.push(args.join(','));
+    }
+
+    public function killAll():Void {
+        commands.push('killAll');
     }
 
     function loop():Void {
