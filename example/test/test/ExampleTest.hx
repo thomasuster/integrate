@@ -28,8 +28,7 @@ class ExampleTest {
         client = new ExampleClient();
     }
     
-    private function onTestAsyncExampleComplete():Void
-    {
+    private function onTestAsyncExampleComplete():Void  {
         MatcherAssert.assertThat(client.fromServer, IsEqual.equalTo('pong'));
     }
 }
