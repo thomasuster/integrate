@@ -56,7 +56,6 @@ class WebSocketClient {
         if(ws.readyState == WebSocket.OPEN) {
             if(commands.length > 0) {
                 var command:String = commands.shift();
-                trace('send $command');
                 ws.send(command);   
             }
         }
