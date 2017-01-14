@@ -13,8 +13,6 @@ class ServerMain {
 
     static var mutex:Mutex;
     public static var pids:Array<Int> = [];
-
-    var threads:Array<Thread>;
     
     static public function main() {
         new ServerMain();
@@ -29,14 +27,13 @@ class ServerMain {
 
     public function new():Void {
         clearLogs();
-        threads = [];
         mutex = new Mutex();
         var server:Server = new hxnet.tcp.Server(new hxnet.base.Factory(SysServerWebSocket), 4000, 'localhost');
         server.listen();
 
         var shutDownSerber:SysShutdownServer = new SysShutdownServer();
         shutDownSerber.start();
-        threads.push(Thread.create(shutDownSerber.update));
+        Thread.create(shutDownSerber.update);
 
         while (!close) {
             server.update();
