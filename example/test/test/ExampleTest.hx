@@ -1,4 +1,4 @@
-package;
+package ;
 
 import js.html.Event;
 import js.html.MouseEvent;

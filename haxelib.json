@@ -8,5 +8,6 @@
   "binaryversion": "",
   "releasenote": "",
   "contributors": [ "" ],
+  "classPath": "src",
   "dependencies": {}
 }

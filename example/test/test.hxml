@@ -2,10 +2,9 @@
 -main TestMain
 -lib munit
 -lib hamcrest
--lib haxe-continuation
+-lib haxe-sys-server
 -cp src
--cp ../src
--cp ../example/client/src
+-cp ../client/src
 
 -cp test
 -js build/js_test.js
