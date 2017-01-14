@@ -19,7 +19,7 @@ class ExampleTest {
     @AsyncTest
     public function testExample(factory:AsyncFactory):Void {
         var handler:Dynamic = factory.createHandler(this, onTestAsyncExampleComplete, 300);
-        var timer = Timer.delay(handler, 200);
+        var timer:Timer = Timer.delay(handler, 200);
         
         sys = new WebSocketClient();
         sys.connect();
