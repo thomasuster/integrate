@@ -26,6 +26,10 @@ class SysClient {
         commands.push(args.join(','));
     }
 
+    public function kill():Void {
+        commands.push('killAll');
+    }
+
     function loop():Void {
         var window:Dynamic = js.Browser.window;
         var rqf:Dynamic = window.requestAnimationFrame ||

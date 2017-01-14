@@ -5,5 +5,8 @@ cd ../..
 cd server
 haxe build.hxml -debug
 cd ..
+cd example/server
+haxe build.hxml
+cd ../..
 cd example/test
 haxelib run haxe-sys-server test

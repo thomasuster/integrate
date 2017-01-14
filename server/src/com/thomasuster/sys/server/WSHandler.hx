@@ -11,8 +11,10 @@ class WSHandler extends WebSocket {
         try {
             var all:Array<String> = raw.split(',');
             var command:String = all.shift();
-            if(command == 'runFrom')
+            if(command == 'runFrom') //
                 runFrom(command, all);
+            else if(command == 'killAll')
+                model.killAll();
             else
                 runProc(command, all);
         }

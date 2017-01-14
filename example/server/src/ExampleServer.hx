@@ -11,6 +11,8 @@ class ExampleServer {
 
     var socket:Socket;
     var s:Socket;
+    var input:BytesInputReal;
+    var output:BytesOutputReal;
 
     public static function main() {
         new ExampleServer();
@@ -33,9 +35,9 @@ class ExampleServer {
     public function update():Void {
         s = socket.accept();
         
-        var input:BytesInputReal = new BytesInputReal();
+        input = new BytesInputReal();
         input.input = s.input;
-        var output:BytesOutputReal = new BytesOutputReal();
+        output = new BytesOutputReal();
         output.output = s.output;
 
         var shaker:HandShaker = new HandShaker();
@@ -50,11 +52,18 @@ class ExampleServer {
             var toServer:Bytes = reader.read();
 
             if(toServer.toString() == 'ping') {
-                var writer:FrameWriter = new FrameWriter();
-                writer.output = output;
-                writer.payload = Bytes.ofString('pong');
-                writer.write();
+                writeString('pong');
+            }
+            if(toServer.toString() == 'marco') {
+                writeString('polo');
             }
         }
+    }
+
+    function writeString(s:String):Void {
+        var writer:FrameWriter = new FrameWriter();
+        writer.output = output;
+        writer.payload = Bytes.ofString(s);
+        writer.write();
     }
 }
