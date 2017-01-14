@@ -1,4 +1,6 @@
 package ;
+import sys.io.File;
+import sys.io.FileOutput;
 import com.thomasuster.ws.FrameWriter;
 import haxe.io.Bytes;
 import com.thomasuster.ws.FrameReader;
@@ -50,11 +52,13 @@ class ExampleServer {
 
         while(true) {
             var toServer:Bytes = reader.read();
-
-            if(toServer.toString() == 'ping') {
+            
+            if(Sys.args().length > 0 && Sys.args()[0] == '-fortyTwo')
+                writeString('fortyTwo');
+            else if(toServer.toString() == 'ping') {
                 writeString('pong');
             }
-            if(toServer.toString() == 'marco') {
+            else if(toServer.toString() == 'marco') {
                 writeString('polo');
             }
         }
@@ -65,5 +69,11 @@ class ExampleServer {
         writer.output = output;
         writer.payload = Bytes.ofString(s);
         writer.write();
+    }
+
+    public function print(s:String):Void {
+        var write:FileOutput = File.append('logs.txt');
+        write.writeString(s+'\n');
+        write.close();
     }
 }
