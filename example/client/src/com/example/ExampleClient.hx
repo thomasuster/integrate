@@ -1,5 +1,4 @@
-package ;
-import haxe.io.Bytes;
+package com.example;
 import js.html.Uint8Array;
 import js.html.ArrayBuffer;
 import js.html.FileReader;
@@ -10,12 +9,11 @@ class ExampleClient {
 
     public var ws:WebSocket;
     public var fromServer:String;
+    public var args:String;
 
-    static function main() {
-        new ExampleClient();
-    }
+    public function new():Void {}
 
-    public function new():Void {
+    public function start():Void {
         connect();
         loop();
     }

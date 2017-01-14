@@ -1,4 +1,5 @@
 package ;
+import com.example.ExampleClient;
 import com.thomasuster.sys.js.AsyncAssert;
 import com.thomasuster.sys.js.SysClient;
 import massive.munit.async.AsyncFactory;
@@ -21,8 +22,9 @@ class ExampleTest {
         AsyncAssert.register(this, asyncFactory, testExampleDone, 100);
         
         sys.send('neko', ['../example/server/Build.n']);
-        
+
         client = new ExampleClient();
+        client.start();
     }
     
     private function testExampleDone():Void  {
