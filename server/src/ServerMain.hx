@@ -21,7 +21,14 @@ class ServerMain {
         pids = [];
     }
 
+    function clearLogs():Void {
+        var write:FileOutput = File.write('logs.txt');
+        write.writeString('');
+        write.close();
+    }
+
     public function new():Void {
+        clearLogs();
         threads = [];
         mutex = new Mutex();
         print('start main');
@@ -33,7 +40,6 @@ class ServerMain {
         threads.push(Thread.create(shutDownSerber.update));
 
         while (!close) {
-//            print('update ' + Math.random());
             server.update();
         }
         for (i in 0...pids.length) {
