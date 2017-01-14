@@ -1,6 +1,6 @@
 import massive.munit.TestSuite;
 
-import ExampleTest;
+import com.example.ExampleTest;
 
 /**
  * Auto generated Test Suite for MassiveUnit.
@@ -14,6 +14,6 @@ class TestSuite extends massive.munit.TestSuite
 	{
 		super();
 
-		add(ExampleTest);
+		add(com.example.ExampleTest);
 	}
 }

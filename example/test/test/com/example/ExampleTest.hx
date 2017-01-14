@@ -1,4 +1,4 @@
-package ;
+package com.example;
 import com.example.ExampleClient;
 import com.thomasuster.sys.js.AsyncAssert;
 import com.thomasuster.sys.js.SysClient;
