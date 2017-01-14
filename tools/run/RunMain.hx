@@ -1,3 +1,4 @@
+import com.thomasuster.sys.RPCClient;
 import haxe.io.Eof;
 import sys.io.Process;
 class RunMain {
@@ -14,27 +15,41 @@ class RunMain {
         commands.set('test', test);
         commands.set('find', find);
         commands.set('kill', kill);
+        commands.set('killAll', killAll);
         commands.get(Sys.args()[0])();
     }
 
-    function test():Void {
+    function killAll():Void {
         killPort(2000);
         killPort(4000);
         killPort(4001);
+        killPort(4002);
+    }
+
+    function test():Void {
+        killAll();
         
         var last:String = Sys.getCwd();
         
         Sys.setCwd('$last/server');
         server = new Process('neko',['Build.n']);
 
-        var path:String = Sys.args()[Sys.args().length-1];
-        Sys.setCwd(path);
+//        var path:String = Sys.args()[Sys.args().length-1];
+//        Sys.setCwd(path);
 
-        var process:Process = new Process('haxelib',['run','munit','test']);
-        var code:Int = process.exitCode(true);
+//        var process:Process = new Process('haxelib',['run','munit','test']);
+//        var code:Int = process.exitCode(true);
         
-        Sys.setCwd(last);
-        Sys.exit(code);
+        
+        server.exitCode(true);
+//        trace('her2');
+
+//        client.update();
+
+
+//        while(true) {}
+//        Sys.setCwd(last);
+//        Sys.exit(code);
     }
 
     function printAll(process:Process):Void {

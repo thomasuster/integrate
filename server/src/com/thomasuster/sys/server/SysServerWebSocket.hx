@@ -49,9 +49,7 @@ class SysServerWebSocket extends WebSocket {
     }
 
     function print(s:String):Void {
-        var write:FileOutput = File.append('logs.txt');
-        write.writeString('\n'+s);
-        write.close();
+        ServerMain.print(s);
     }
 }
    

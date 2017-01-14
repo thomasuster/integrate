@@ -1,3 +1,5 @@
 -main RunMain
+-cp ../../server/src
+-lib hxnet
 -neko ../../run.n
 -debug

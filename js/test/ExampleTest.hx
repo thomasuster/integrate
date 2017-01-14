@@ -31,7 +31,7 @@ class ExampleTest {
     }
     private function onTestAsyncExampleComplete():Void
     {
-        sys.send('killAll',[]);
+//        sys.send('killAll',[]);
         MatcherAssert.assertThat(client.fromServer, IsEqual.equalTo('pong'));
     }
 }
