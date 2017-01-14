@@ -3,7 +3,7 @@ package ;
 import js.html.Event;
 import js.html.MouseEvent;
 import haxe.Timer;
-import com.thomasuster.sys.js.WebSocketClient;
+import com.thomasuster.sys.js.SysClient;
 import js.Browser;
 import js.html.Document;
 import massive.munit.Assert;
@@ -14,14 +14,14 @@ import org.hamcrest.core.IsEqual;
 class ExampleTest {
     
     var client:ExampleClient;
-    var sys:WebSocketClient;
+    var sys:SysClient;
     
     @AsyncTest
     public function testExample(factory:AsyncFactory):Void {
         var handler:Dynamic = factory.createHandler(this, onTestAsyncExampleComplete, 300);
         var timer:Timer = Timer.delay(handler, 200);
         
-        sys = new WebSocketClient();
+        sys = new SysClient();
         sys.connect();
         sys.send('neko', ['../example/server/Build.n']);
         
