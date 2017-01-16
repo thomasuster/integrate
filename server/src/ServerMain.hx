@@ -15,8 +15,9 @@ class ServerMain {
 
     public function new():Void {
         model = new ServerModel();
+        model.root = Sys.getCwd();
         model.clearLogs();
-
+        
         startWSHandler();
         startShutdownServer();
 

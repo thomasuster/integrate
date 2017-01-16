@@ -12,6 +12,8 @@ class ExampleClient {
     public var args:String;
     
     var flags:Map<String,String>;
+    var close:Bool;
+    var loopFunc:Void->Void;
 
     public function new():Void {
         args = '';
@@ -22,6 +24,11 @@ class ExampleClient {
         parseArgs();
         connect();
         loop();
+    }
+
+    public function kill():Void {
+        ws.close(1000,'Complete');
+        close = true;
     }
 
     function parseArgs():Void {
@@ -37,7 +44,8 @@ class ExampleClient {
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame;
         update();
-        rqf(loop);
+        if(!close)
+            rqf(loop);
     }
 
     function connect():Void {

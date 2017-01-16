@@ -24,17 +24,25 @@ class WSHandler extends WebSocket {
     }
 
     function runFrom(command:String, all:Array<String>):Void {
+        var start:String = Sys.args()[Sys.args().length-1];
         var last:String = Sys.getCwd();
+        var absolute:String = start + all.shift();
+        print(absolute);
         runProc('pwd',[]);
-        Sys.setCwd(all[0]);
+        Sys.setCwd(absolute);
+        runProc('pwd',[]);
         command = all.shift();
         runProc(command, all);
         Sys.setCwd(last);
     }
 
-    function runProc(command:String, all:Array<String>):Void {
+    public function runProc(command:String, all:Array<String>):Void {
+        print(command + ' ' + all.join(' ') );
         var process:Process = new Process(command, all);
         model.pids.push(process.getPid());
+        if(command == 'pwd') {
+            print('pwd:' + process.stdout.readLine());
+        }
     }
 
     function print(s:String):Void {

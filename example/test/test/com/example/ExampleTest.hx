@@ -21,14 +21,15 @@ class ExampleTest {
     public function testExample(asyncFactory:AsyncFactory):Void {
         trace('a1');
         AsyncAssert.register(this, asyncFactory, testExampleDone, 200);
-        
-        sys.send('neko', ['../example/server/Build.n']);
+
+        sys.send('runFrom', ['../server', 'neko','Build.n', 'a']);
 
         client = new ExampleClient();
         client.start();
     }
     function testExampleDone():Void  {
         trace('a2');
+        client.kill();
         sys.kill();
         MatcherAssert.assertThat(client.fromServer, IsEqual.equalTo('pong'));
     }
@@ -38,7 +39,7 @@ class ExampleTest {
         trace('b1');
         AsyncAssert.register(this, asyncFactory, testClientArgDone, 200);
 
-        sys.send('neko', ['../example/server/Build.n']);
+        sys.send('runFrom', ['../server', 'neko','Build.n', 'b']);
 
         client = new ExampleClient();
         client.args = '-marco';
@@ -46,6 +47,7 @@ class ExampleTest {
     }
     function testClientArgDone():Void  {
         trace('b2');
+        client.kill();
         sys.kill();
         MatcherAssert.assertThat(client.fromServer, IsEqual.equalTo('polo'));
     }
@@ -55,13 +57,14 @@ class ExampleTest {
         trace('c1');
         AsyncAssert.register(this, asyncFactory, testServerArgDone, 300);
 
-        sys.send('neko', ['../example/server/Build.n','-fortyTwo']);
+        sys.send('runFrom', ['../server', 'neko','Build.n', 'c', '-fortyTwo']);
 
         client = new ExampleClient();
         client.start();
     }
     function testServerArgDone():Void  {
         trace('c2');
+        client.kill();
         sys.kill();
         MatcherAssert.assertThat(client.fromServer, IsEqual.equalTo('fortyTwo'));
     }

@@ -15,18 +15,21 @@ class ExampleServer {
     var s:Socket;
     var input:BytesInputReal;
     var output:BytesOutputReal;
+    var id:String;
 
     public static function main() {
         new ExampleServer();
     }
     
     public function new():Void {
+        id = Sys.args()[0];
         start();
         while(true)
             update();
     }
 
     public function start():Void {
+        print('start');
         socket = new Socket();
         socket.setBlocking(true);
         socket.setTimeout(60);
@@ -36,6 +39,7 @@ class ExampleServer {
 
     public function update():Void {
         s = socket.accept();
+        print('accept');
         
         input = new BytesInputReal();
         input.input = s.input;
@@ -53,7 +57,10 @@ class ExampleServer {
         while(true) {
             var toServer:Bytes = reader.read();
             
-            if(Sys.args().length > 0 && Sys.args()[0] == '-fortyTwo')
+            print(toServer.toString());
+            
+            print(Sys.args()[Sys.args().length-1]);
+            if(Sys.args().length > 0 && Sys.args()[Sys.args().length-1] == '-fortyTwo')
                 writeString('fortyTwo');
             else if(toServer.toString() == 'ping') {
                 writeString('pong');
@@ -73,7 +80,7 @@ class ExampleServer {
 
     public function print(s:String):Void {
         var write:FileOutput = File.append('logs.txt');
-        write.writeString(s+'\n');
+        write.writeString('$id: $s \n');
         write.close();
     }
 }

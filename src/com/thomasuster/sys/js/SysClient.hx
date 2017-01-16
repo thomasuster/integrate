@@ -43,6 +43,7 @@ class SysClient {
         if(ws.readyState == WebSocket.OPEN) {
             if(commands.length > 0) {
                 var command:String = commands.shift();
+                trace(command);
                 ws.send(command);   
             }
         }

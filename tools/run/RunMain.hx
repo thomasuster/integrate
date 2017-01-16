@@ -41,11 +41,13 @@ class RunMain {
         killAll();
         
         var last:String = Sys.getCwd();
-        
-        Sys.setCwd('$last/server');
-        server = new Process('neko',['Build.n']);
 
         var path:String = Sys.args()[Sys.args().length-1];
+        
+        trace(last);
+        Sys.setCwd('$last/server');
+        server = new Process('neko',['Build.n', path]);
+
         Sys.setCwd(path);
 
         var process:Process = new Process('haxelib',['run','munit','test']);
