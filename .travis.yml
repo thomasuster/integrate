@@ -1,0 +1,18 @@
+language: objective-c
+
+install:
+  - brew install neko haxe
+  - cd ..
+  - mkdir haxelib
+  - haxelib setup haxelib
+  
+before_script:
+  - cd $TRAVIS_BUILD_DIR
+  - git clone https://github.com/thomasuster/haxe-websocket-server.git
+  - haxelib dev haxe-websocket-server haxe-websocket-server
+  - haxelib install munit
+  - haxelib install hamcrest
+  
+script:
+  - sh build.sh
+  
