@@ -1,7 +1,7 @@
 package com.example;
 import com.example.ExampleClient;
-import com.thomasuster.sys.js.AsyncAssert;
-import com.thomasuster.sys.js.SysClient;
+import com.thomasuster.integrate.js.AsyncAssert;
+import com.thomasuster.integrate.js.SysClient;
 import massive.munit.async.AsyncFactory;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;

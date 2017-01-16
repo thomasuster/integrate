@@ -1,4 +1,4 @@
-package com.thomasuster.sys.js;
+package com.thomasuster.integrate.js;
 import String;
 import js.html.Event;
 import js.html.MessageEvent;

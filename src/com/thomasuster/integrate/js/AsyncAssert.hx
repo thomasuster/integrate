@@ -1,4 +1,4 @@
-package com.thomasuster.sys.js;
+package com.thomasuster.integrate.js;
 import haxe.Timer;
 import massive.munit.async.AsyncFactory;
 class AsyncAssert {

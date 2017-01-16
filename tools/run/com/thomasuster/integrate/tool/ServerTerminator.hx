@@ -1,4 +1,4 @@
-package com.thomasuster.sys.tool;
+package com.thomasuster.integrate.tool;
 class ServerTerminator {
     
     public function new():Void {

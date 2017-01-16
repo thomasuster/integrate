@@ -1,4 +1,4 @@
-package com.thomasuster.sys.server;
+package com.thomasuster.integrate.server;
 import hxnet.interfaces.Protocol;
 import hxnet.interfaces.Factory;
 class WSHandlerFactory implements Factory {

@@ -1,7 +1,7 @@
-import com.thomasuster.sys.tool.SysServerPorts;
-import com.thomasuster.sys.tool.PIDFinder;
-import com.thomasuster.sys.tool.ProcessPrinter;
-import com.thomasuster.sys.tool.ServerTerminator;
+import com.thomasuster.integrate.tool.SysServerPorts;
+import com.thomasuster.integrate.tool.PIDFinder;
+import com.thomasuster.integrate.tool.ProcessPrinter;
+import com.thomasuster.integrate.tool.ServerTerminator;
 import sys.io.Process;
 class RunMain {
     
