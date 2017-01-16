@@ -19,16 +19,14 @@ class ExampleTest {
     
     @AsyncTest
     public function testExample(asyncFactory:AsyncFactory):Void {
-        trace('a1');
         AsyncAssert.register(this, asyncFactory, testExampleDone, 200);
 
-        sys.send('runFrom', ['../server', 'neko','Build.n', 'a']);
+        sys.send('runFrom', ['../server', 'neko','Build.n']);
 
         client = new ExampleClient();
         client.start();
     }
     function testExampleDone():Void  {
-        trace('a2');
         client.kill();
         sys.kill();
         MatcherAssert.assertThat(client.fromServer, IsEqual.equalTo('pong'));
@@ -36,17 +34,15 @@ class ExampleTest {
 
     @AsyncTest
     public function testClientArg(asyncFactory:AsyncFactory):Void {
-        trace('b1');
         AsyncAssert.register(this, asyncFactory, testClientArgDone, 200);
 
-        sys.send('runFrom', ['../server', 'neko','Build.n', 'b']);
+        sys.send('runFrom', ['../server', 'neko','Build.n']);
 
         client = new ExampleClient();
         client.args = '-marco';
         client.start();
     }
     function testClientArgDone():Void  {
-        trace('b2');
         client.kill();
         sys.kill();
         MatcherAssert.assertThat(client.fromServer, IsEqual.equalTo('polo'));
@@ -54,16 +50,14 @@ class ExampleTest {
 
     @AsyncTest
     public function testServerArg(asyncFactory:AsyncFactory):Void {
-        trace('c1');
         AsyncAssert.register(this, asyncFactory, testServerArgDone, 300);
 
-        sys.send('runFrom', ['../server', 'neko','Build.n', 'c', '-fortyTwo']);
+        sys.send('runFrom', ['../server', 'neko','Build.n', '-fortyTwo']);
 
         client = new ExampleClient();
         client.start();
     }
     function testServerArgDone():Void  {
-        trace('c2');
         client.kill();
         sys.kill();
         MatcherAssert.assertThat(client.fromServer, IsEqual.equalTo('fortyTwo'));
