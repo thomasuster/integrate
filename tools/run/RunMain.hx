@@ -1,3 +1,4 @@
+import com.thomasuster.sys.tool.SysServerPorts;
 import com.thomasuster.sys.tool.PIDFinder;
 import com.thomasuster.sys.tool.ProcessPrinter;
 import com.thomasuster.sys.tool.ServerTerminator;
@@ -31,10 +32,8 @@ class RunMain {
     }
 
     function killAll():Void {
-        killPort(2000);
-        killPort(4000);
-        killPort(4001);
-        killPort(4002);
+        killPort(SysServerPorts.MUNIT_PORT);
+        killPort(SysServerPorts.SERVER_PORT);
     }
 
     function test():Void {

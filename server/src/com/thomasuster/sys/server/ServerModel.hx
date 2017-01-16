@@ -1,8 +1,7 @@
 package com.thomasuster.sys.server;
-import sys.io.Process;
-import sys.io.FileOutput;
-import sys.io.File;
 import neko.vm.Mutex;
+import sys.io.File;
+import sys.io.FileOutput;
 class ServerModel {
 
     public var pids:Array<Int> = [];
@@ -37,14 +36,6 @@ class ServerModel {
         write.writeString(s+'\n');
         write.close();
         mutex.release();
-    }
-
-    public function runProc(command:String, all:Array<String>):Void {
-        var process:Process = new Process(command, all);
-        pids.push(process.getPid());
-        if(command == 'pwd') {
-            print('pwd:' + process.stdout.readLine());
-        }
     }
 }
    
