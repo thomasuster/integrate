@@ -9,4 +9,4 @@ cd example/server
 haxe build.hxml
 cd ../..
 cd example/test
-haxelib run haxe-sys-server test
+haxelib run integrate test
