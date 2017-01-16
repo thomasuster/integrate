@@ -27,7 +27,6 @@ class ExampleClient {
     }
 
     public function kill():Void {
-        ws.close(1000,'Complete');
         close = true;
     }
 
