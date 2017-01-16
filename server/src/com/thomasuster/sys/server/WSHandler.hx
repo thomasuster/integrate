@@ -11,8 +11,8 @@ class WSHandler extends WebSocket {
         try {
             var all:Array<String> = raw.split(',');
             var command:String = all.shift();
-            if(command == 'runFrom') //
-                runFrom(command, all);
+            if(command == 'setCwd')
+                runFrom(all[0])
             else if(command == 'killAll')
                 model.killAll();
             else
@@ -23,17 +23,18 @@ class WSHandler extends WebSocket {
         }
     }
 
-    function runFrom(command:String, all:Array<String>):Void {
+    function runFrom(s:String):Void {
         var start:String = Sys.args()[Sys.args().length-1];
-        var last:String = Sys.getCwd();
-        var absolute:String = start + all.shift();
-        print(absolute);
-        runProc('pwd',[]);
-        Sys.setCwd(absolute);
-        runProc('pwd',[]);
-        command = all.shift();
-        runProc(command, all);
-        Sys.setCwd(last);
+        Sys.setCwd(start+s);
+//        var last:String = Sys.getCwd();
+//        var absolute:String = start + all.shift();
+//        print(absolute);
+//        runProc('pwd',[]);
+//        Sys.setCwd(absolute);
+//        runProc('pwd',[]);
+//        command = all.shift();
+//        runProc(command, all);
+//        Sys.setCwd(last);
     }
 
     public function runProc(command:String, all:Array<String>):Void {

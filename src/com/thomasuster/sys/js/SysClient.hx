@@ -21,6 +21,10 @@ class SysClient {
         loop();
     }
 
+    public function setCwd(path:String):Void {
+        commands.push('setCwd,$path');
+    }
+
     public function send(command:String, args:Array<String>):Void {
         args.unshift(command);
         commands.push(args.join(','));

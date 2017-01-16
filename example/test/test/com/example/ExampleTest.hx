@@ -15,13 +15,14 @@ class ExampleTest {
     public function beforeClass():Void {
         sys = new SysClient();
         sys.connect();
+        sys.setCwd('../server');
     }
     
     @AsyncTest
     public function testExample(asyncFactory:AsyncFactory):Void {
         AsyncAssert.register(this, asyncFactory, testExampleDone, 200);
 
-        sys.send('runFrom', ['../server', 'neko','Build.n']);
+        sys.send('neko',['Build.n']);
 
         client = new ExampleClient();
         client.start();
@@ -36,7 +37,7 @@ class ExampleTest {
     public function testClientArg(asyncFactory:AsyncFactory):Void {
         AsyncAssert.register(this, asyncFactory, testClientArgDone, 200);
 
-        sys.send('runFrom', ['../server', 'neko','Build.n']);
+        sys.send('neko',['Build.n']);
 
         client = new ExampleClient();
         client.args = '-marco';
@@ -52,7 +53,7 @@ class ExampleTest {
     public function testServerArg(asyncFactory:AsyncFactory):Void {
         AsyncAssert.register(this, asyncFactory, testServerArgDone, 300);
 
-        sys.send('runFrom', ['../server', 'neko','Build.n', '-fortyTwo']);
+        sys.send('neko',['Build.n', '-fortyTwo']);
 
         client = new ExampleClient();
         client.start();

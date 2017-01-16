@@ -44,7 +44,6 @@ class RunMain {
 
         var path:String = Sys.args()[Sys.args().length-1];
         
-        trace(last);
         Sys.setCwd('$last/server');
         server = new Process('neko',['Build.n', path]);
 
