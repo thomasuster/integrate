@@ -1,3 +1,5 @@
+import sys.FileSystem;
+import sys.io.File;
 import com.thomasuster.integrate.tool.SysServerPorts;
 import com.thomasuster.integrate.tool.PIDFinder;
 import com.thomasuster.integrate.tool.ProcessPrinter;
@@ -20,6 +22,7 @@ class RunMain {
         printer = new ProcessPrinter();
         serverTerminator = new ServerTerminator();
         commands = new Map<String, Void->Void>();
+        commands.set('create', create);
         commands.set('test', test);
         commands.set('find', find);
         commands.set('kill', kill);
@@ -29,6 +32,17 @@ class RunMain {
             commands.get(command)();
         else
             Sys.println('Command not found \'$command\'');
+    }
+
+    function create():Void {
+        var last:String = Sys.getCwd();
+        var sourcedir:String = '${last}example';
+        var original:String = Sys.args()[2];
+        var relative:String = Sys.args()[1];
+        var destdir:String = original+relative;
+        var command:String = 'cp -R $sourcedir $destdir';
+        var split:Array<String> = command.split(' ');
+        Sys.command(split.shift(), split);
     }
 
     function killAll():Void {
