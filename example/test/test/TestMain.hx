@@ -33,12 +33,11 @@ class TestMain
 
 		var runner:TestRunner = new TestRunner(client); 
 		runner.addResultClient(httpClient);
-		//runner.addResultClient(new HTTPClient(new JUnitReportClient()));
 		
 		runner.completionHandler = completionHandler;
 		
 		#if js
-		var seconds = 0; // edit here to add some startup delay
+		var seconds = 0;
 		function delayStartup() 
 		{
 			if (seconds > 0) {
@@ -74,7 +73,6 @@ class TestMain
 				Sys.exit(0);
 			#end
 		}
-		// if run from outside browser can get error which we can ignore
 		catch (e:Dynamic)
 		{
 		}

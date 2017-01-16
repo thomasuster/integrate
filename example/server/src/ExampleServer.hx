@@ -56,9 +56,7 @@ class ExampleServer {
             var toServer:Bytes = reader.read();
             
             print(toServer.toString());
-//            print('' + reader.payloadLength);
             
-//            print(Sys.args()[Sys.args().length-1]);
             if(Sys.args().length > 0 && Sys.args()[Sys.args().length-1] == '-fortyTwo')
                 writeString('fortyTwo');
             else if(toServer.toString() == 'ping') {
