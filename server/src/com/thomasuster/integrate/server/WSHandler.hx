@@ -11,7 +11,7 @@ class WSHandler extends WebSocket {
 
     override private function recvText(raw:String):Void {
         try {
-            all = raw.split(',');
+            all = raw.split(' ');
             command = all.shift();
             if(command == 'setCwd')
                 setCwd();

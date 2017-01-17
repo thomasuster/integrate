@@ -22,12 +22,11 @@ class SysClient {
     }
 
     public function setCwd(path:String):Void {
-        commands.push('setCwd,$path');
+        commands.push('setCwd $path');
     }
 
-    public function send(command:String, args:Array<String>):Void {
-        args.unshift(command);
-        commands.push(args.join(','));
+    public function send(s:String):Void {
+        commands.push(s);
     }
 
     public function kill():Void {
