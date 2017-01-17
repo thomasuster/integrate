@@ -10,9 +10,10 @@ before_script:
   - cd $TRAVIS_BUILD_DIR
   - git clone https://github.com/thomasuster/haxe-websocket-server.git
   - haxelib dev haxe-websocket-server haxe-websocket-server
+  - git clone https://github.com/MattTuttle/hxnet.git
+  - haxelib dev hxnet hxnet
   - haxelib install munit
   - haxelib install hamcrest
-  - haxelib install hxnet
   
 script:
   - sh build.sh
