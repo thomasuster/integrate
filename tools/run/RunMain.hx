@@ -62,7 +62,7 @@ class RunMain {
 
         Sys.setCwd(path);
 
-        var process:Process = new Process('haxelib',['run','munit','test']);
+        var process:Process = new Process('haxelib',['run','munit','test','-result-exit-code']);
         var code:Int = process.exitCode();
 
         serverTerminator.terminate();
