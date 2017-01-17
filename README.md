@@ -1,4 +1,4 @@
- ## Integrate
+## Integrate
  
 Full integration testing for your (haxe->js + server) applications.
 
