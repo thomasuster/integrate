@@ -8,6 +8,7 @@ install:
   
 before_script:
   - cd $TRAVIS_BUILD_DIR
+  - haxelib dev integrate .
   - git clone https://github.com/thomasuster/haxe-websocket-server.git
   - haxelib dev haxe-websocket-server haxe-websocket-server
   - git clone https://github.com/MattTuttle/hxnet.git
